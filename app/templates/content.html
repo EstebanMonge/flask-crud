@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/add_person" method="post">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="fname" placeholder="First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="lname" placeholder="Last Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="username" placeholder="Username" required>
+                        </div>
+                        <button class="btn btn-primary" type="submit">
+                            Add
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Is Active</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for person in persons %}
+                <tr>
+                    <td>{{ person.person_id }}</td>
+                    <td>{{ person.fname }}</td>
+                    <td>{{ person.lname }}</td>
+                    <td>{{ person.email }}</td>
+                    <td>{{ person.username }}</td>
+                    <td>{{ person.is_active }}</td>
+                    <td>
+                        <a class="{{ 'btn btn-success' if person.status else 'btn btn-dark'}}"
+                           href="/turn_person/{{ person.person_id }}">
+                           Activate/Deactivate 
+                        </a>
+                        <a class="btn btn-danger"
+                           href="/delete_person/{{ person.person_id }}">
+                            Delete
+                        </a>
+                        <a class="btn btn-info"
+                           href="/update_person/{{ person.person_id }}">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
