@@ -1,0 +1,5 @@
+{% if request.endpoint == 'person' %}
+{% include "person.html" %}
+{% else %}
+{% include "content.html" %}
+{% endif %}

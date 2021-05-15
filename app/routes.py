@@ -10,6 +10,26 @@ def index():
     persons = Person.query.all()
     return render_template('index.html', persons=persons)
 
+@app.route('/person')
+def person():
+    persons = Person.query.all()
+    return render_template('index.html', persons=persons)
+
+@app.route('/role')
+def role():
+    role = Role.query.all()
+    return render_template('index.html', role=role)
+
+@app.route('/group')
+def group():
+    group = Group.query.all()
+    return render_template('index.html', group=group)
+
+@app.route('/shift')
+def shift():
+    shift = Shift.query.all()
+    return render_template('index.html', shift=shift)
+
 @app.route('/add_person', methods=['POST'])
 def add():
 
@@ -40,7 +60,7 @@ def updateRoute(id):
     if not id or id != 0:
         person = Person.query.get(id)
         if person:
-            return render_template('update.html', person=person)
+            return render_template('update_person.html', person=person)
 
     return "of the jedi"
 
