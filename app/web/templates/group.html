@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <h1>Group</h1>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/add_group" method="post">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name:</label>
+                            <input class="form-control" type="text" name="name" placeholder="Name" required>
+                        </div>
+                        <button class="btn btn-primary" type="submit">
+                            Add
+                        </button>
+                    </form>
+                </div><!--card-body" -->
+            </div><!-- card --> 
+        </div><!-- col-md-6 -->
+        <div class="col-md-3">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for group in groups %}
+                <tr>
+                    <td>{{ group.group_id }}</td>
+                    <td>{{ group.name }}</td>
+                    <td>
+                        <a class="btn btn-danger"
+                           href="/delete_group/{{ group.group_id }}">
+                            Delete
+                        </a>
+                        <a class="btn btn-info"
+                           href="/update_group/{{ group.group_id }}">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div> <!-- col-md-6 -->
+    </div><!-- row -->
+</div><!-- container -->
+
+{% endblock %}

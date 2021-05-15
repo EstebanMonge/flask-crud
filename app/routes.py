@@ -1,6 +1,9 @@
 from flask import render_template, request, redirect
 from app import app, db
 from app.models import Person
+from app.models import Group
+from app.models import Role 
+from app.models import Shift 
 
 jedi = "of the jedi"
 
@@ -51,7 +54,7 @@ def add():
             person = Person(fname = fname, lname = lname, email = email, username = username, is_active = is_active)
             db.session.add(person)
             db.session.commit()
-            return redirect('/')
+            return redirect('/person')
 
     return "of the jedi"
 
@@ -71,7 +74,7 @@ def delete(id):
         if person:
             db.session.delete(person)
             db.session.commit()
-        return redirect('/')
+        return redirect('/person')
 
     return "of the jedi"
 
@@ -82,7 +85,7 @@ def turn(id):
         if person:
             person.is_active = not person.is_active
             db.session.commit()
-        return redirect('/')
+        return redirect('/person')
 
     return "of the jedi"
 

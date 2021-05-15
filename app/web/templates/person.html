@@ -4,20 +4,25 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <h1>Person</h1>
+        <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
                     <form action="/add_person" method="post">
-                        <div class="form-group">
+                        <div class="mb-3">
+                            <label for="fname" class="form-label">First Name:</label>
                             <input class="form-control" type="text" name="fname" placeholder="First Name" required>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
+                            <label for="lname" class="form-label">Last Name:</label>
                             <input class="form-control" type="text" name="lname" placeholder="Last Name" required>
                         </div>
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="email" placeholder="Email" required>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input class="form-control" type="email" name="email" placeholder="Email" required>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username:</label>
                             <input class="form-control" type="text" name="username" placeholder="Username" required>
                         </div>
                         <button class="btn btn-primary" type="submit">
@@ -27,7 +32,7 @@
                 </div><!--card-body" -->
             </div><!-- card --> 
         </div><!-- col-md-6 -->
-        <div class="col-md-6">
+        <div class="col-md-3">
             <table class="table table-bordered table-hover">
                 <thead>
                 <tr>
@@ -37,6 +42,10 @@
                     <th>Email</th>
                     <th>Username</th>
                     <th>Is Active</th>
+                    <th>Role</th>
+                    <th>Platform</th>
+                    <th>Shift</th>
+                    <th>Group</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -49,8 +58,12 @@
                     <td>{{ person.email }}</td>
                     <td>{{ person.username }}</td>
                     <td>{{ person.is_active }}</td>
+                    <td>{{ person.role }}</td>
+                    <td>{{ person.platform }}</td>
+                    <td>{{ person.shift }}</td>
+                    <td>{{ person.group }}</td>
                     <td>
-                        <a class="{{ 'btn btn-success' if person.status else 'btn btn-dark'}}"
+                        <a class="{{ 'btn btn-success' if person.is_active else 'btn btn-dark'}}"
                            href="/turn_person/{{ person.person_id }}">
                            Activate/Deactivate 
                         </a>
@@ -73,8 +86,3 @@
 </div><!-- container -->
 
 {% endblock %}
-
-
-
-
-

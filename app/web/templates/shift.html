@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <h1>Shift</h1>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/add_shift" method="post">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name:</label>
+                            <input class="form-control" type="text" name="name" placeholder="Name" required>
+                        </div>
+                        <button class="btn btn-primary" type="submit">
+                            Add
+                        </button>
+                    </form>
+                </div><!--card-body" -->
+            </div><!-- card --> 
+        </div><!-- col-md-6 -->
+        <div class="col-md-3">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for shift in shifts %}
+                <tr>
+                    <td>{{ shift.role_id }}</td>
+                    <td>{{ shift.name }}</td>
+                    <td>
+                        <a class="btn btn-danger"
+                           href="/delete_shift/{{ shift.shift_id }}">
+                            Delete
+                        </a>
+                        <a class="btn btn-info"
+                           href="/update_shift/{{ shift.shift_id }}">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div> <!-- col-md-6 -->
+    </div><!-- row -->
+</div><!-- container -->
+
+{% endblock %}

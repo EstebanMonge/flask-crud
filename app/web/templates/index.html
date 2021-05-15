@@ -1,5 +1,11 @@
 {% if request.endpoint == 'person' %}
 {% include "person.html" %}
+{% elif request.endpoint == 'role' %}
+{% include "role.html" %}
+{% elif request.endpoint == 'shift' %}
+{% include "shift.html" %}
+{% elif request.endpoint == 'group' %}
+{% include "group.html" %}
 {% else %}
 {% include "content.html" %}
 {% endif %}
