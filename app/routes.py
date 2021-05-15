@@ -7,6 +7,7 @@ from app.models import Shift
 
 jedi = "of the jedi"
 
+#display routes
 @app.route('/')
 @app.route('/index')
 def index():
@@ -20,22 +21,22 @@ def person():
 
 @app.route('/role')
 def role():
-    role = Role.query.all()
-    return render_template('index.html', role=role)
+    roles = Role.query.all()
+    return render_template('index.html', roles=roles)
 
 @app.route('/group')
 def group():
-    group = Group.query.all()
-    return render_template('index.html', group=group)
+    groups = Group.query.all()
+    return render_template('index.html', groups=groups)
 
 @app.route('/shift')
 def shift():
-    shift = Shift.query.all()
-    return render_template('index.html', shift=shift)
+    shifts = Shift.query.all()
+    return render_template('index.html', shifts=shifts)
 
+#add routes
 @app.route('/add_person', methods=['POST'])
-def add():
-
+def add_person():
     if request.method == 'POST':
         form = request.form
         fname = form.get('fname')
@@ -58,6 +59,46 @@ def add():
 
     return "of the jedi"
 
+@app.route('/add_role', methods=['POST'])
+def add_role():
+    if request.method == 'POST':
+        form = request.form
+        name = form.get('name')
+        role_id = form.get('role_id')
+        if role_id:
+            role = Role.query.get(role_id)
+            if role:
+                db.session.delete(role)
+                db.session.commit()
+
+        if name:
+            role = Role(name = name)
+            db.session.add(role)
+            db.session.commit()
+            return redirect('/role')
+
+    return "of the jedi"
+
+@app.route('/add_shift', methods=['POST'])
+def add_shift():
+    if request.method == 'POST':
+        form = request.form
+        name = form.get('name')
+        shift_id = form.get('shift_id')
+        if shift_id:
+            shift = Shift.query.get(shift_id)
+            if shift:
+                db.session.delete(shift)
+                db.session.commit()
+
+        if name:
+            shift = Shift(name = name)
+            db.session.add(shift)
+            db.session.commit()
+            return redirect('/shift')
+
+    return "of the jedi"
+
 @app.route('/update_person/<int:id>')
 def updateRoute(id):
     if not id or id != 0:
@@ -67,8 +108,9 @@ def updateRoute(id):
 
     return "of the jedi"
 
+#delete routes
 @app.route('/delete_person/<int:id>')
-def delete(id):
+def delete_person(id):
     if not id or id != 0:
         person = Person.query.get(id)
         if person:
@@ -77,6 +119,19 @@ def delete(id):
         return redirect('/person')
 
     return "of the jedi"
+
+@app.route('/delete_role/<int:id>')
+def delete_role(id):
+    if not id or id != 0:
+        role = Role.query.get(id)
+        if role:
+            db.session.delete(role)
+            db.session.commit()
+        return redirect('/role')
+
+    return "of the jedi"
+
+@app.route('/turn_person/<int:id>')
 
 @app.route('/turn_person/<int:id>')
 def turn(id):
