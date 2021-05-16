@@ -84,6 +84,36 @@ def add_shift():
     if request.method == 'POST':
         form = request.form
         name = form.get('name')
+        start_hour = form.get('start_hour')
+        end_hour = form.get('end_hour')
+        if form.get('sunday') == "true":
+            sunday = True
+        else:
+            sunday = False
+        if form.get('monday') == "true":
+            monday = True
+        else:
+            monday = False
+        if form.get('tuesday') == "true":
+            tuesday = True
+        else:
+            tuesday = False
+        if form.get('wednesday') == "true":
+            wednesday = True
+        else:
+            wednesday = False
+        if form.get('thursday') == "true":
+            thursday = True
+        else:
+            thursday = False
+        if form.get('friday') == "true":
+            friday = True
+        else:
+            friday = False
+        if form.get('saturday') == "true":
+            saturday = True
+        else:
+            saturday = False
         shift_id = form.get('shift_id')
         if shift_id:
             shift = Shift.query.get(shift_id)
@@ -91,8 +121,8 @@ def add_shift():
                 db.session.delete(shift)
                 db.session.commit()
 
-        if name:
-            shift = Shift(name = name)
+        if not name or start_hour or end_hour or sunday or monday or tuesday or wednesday or thursday or friday or saturday:
+            shift = Shift(name = name, start_hour = start_hour, end_hour = end_hour, sunday = sunday, monday = monday, tuesday = tuesday, wednesday = wednesday, thursday = thursday, friday = friday, saturday = saturday)
             db.session.add(shift)
             db.session.commit()
             return redirect('/shift')
@@ -128,6 +158,17 @@ def delete_role(id):
             db.session.delete(role)
             db.session.commit()
         return redirect('/role')
+
+    return "of the jedi"
+
+@app.route('/delete_shift/<int:id>')
+def delete_shift(id):
+    if not id or id != 0:
+        shift = Shift.query.get(id)
+        if shift:
+            db.session.delete(shift)
+            db.session.commit()
+        return redirect('/shift')
 
     return "of the jedi"
 

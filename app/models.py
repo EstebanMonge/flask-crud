@@ -23,8 +23,8 @@ class Platform(db.Model):
 class Shift(db.Model):
     shift_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, nullable=False)
-    start_hour = db.Column(db.Integer, default=False)
-    end_hour = db.Column(db.Integer, default=False)
+    start_hour = db.Column(db.String(64), default=False)
+    end_hour = db.Column(db.String(64), default=False)
     sunday = db.Column(db.Boolean, default=False)
     monday = db.Column(db.Boolean, default=False)
     tuesday = db.Column(db.Boolean, default=False)
