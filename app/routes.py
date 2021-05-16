@@ -129,6 +129,26 @@ def add_shift():
 
     return "of the jedi"
 
+@app.route('/add_group', methods=['POST'])
+def add_group():
+    if request.method == 'POST':
+        form = request.form
+        name = form.get('name')
+        group_id = form.get('group_id')
+        if group_id:
+            group = Group.query.get(group_id)
+            if role:
+                db.session.delete(group)
+                db.session.commit()
+
+        if name:
+            group = Group(name = name)
+            db.session.add(group)
+            db.session.commit()
+            return redirect('/group')
+
+    return "of the jedi"
+
 @app.route('/update_person/<int:id>')
 def updateRoute(id):
     if not id or id != 0:
@@ -169,6 +189,17 @@ def delete_shift(id):
             db.session.delete(shift)
             db.session.commit()
         return redirect('/shift')
+
+    return "of the jedi"
+
+@app.route('/delete_group/<int:id>')
+def delete_group(id):
+    if not id or id != 0:
+        group = Group.query.get(id)
+        if group:
+            db.session.delete(group)
+            db.session.commit()
+        return redirect('/group')
 
     return "of the jedi"
 
