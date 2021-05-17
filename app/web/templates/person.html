@@ -25,6 +25,30 @@
                             <label for="username" class="form-label">Username:</label>
                             <input class="form-control" type="text" name="username" placeholder="Username" required>
                         </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="role">
+                                <option selected>Select role</option>
+                            {% for role in roles %}
+                                <option value="{{ role.role_id }}">{{ role.name }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="shift">
+                                <option selected>Select shift</option>
+                            {% for shift in shifts %}
+                                <option value="{{ shift.shift_id }}">{{ shift.name }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="group">
+                                <option selected>Select group</option>
+                            {% for group in groups %}
+                                <option value="{{ group.group_id }}">{{ group.name }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
                         <button class="btn btn-primary" type="submit">
                             Add
                         </button>
@@ -58,10 +82,28 @@
                     <td>{{ person.email }}</td>
                     <td>{{ person.username }}</td>
                     <td>{{ person.is_active }}</td>
-                    <td>{{ person.role }}</td>
+                    <td>
+                        {% for role in roles %}
+                           {% if (role.role_id == person.role) %}
+                               {{ role.name }}
+                           {% endif %}
+                        {% endfor %}
+                    </td>
                     <td>{{ person.platform }}</td>
-                    <td>{{ person.shift }}</td>
-                    <td>{{ person.group }}</td>
+                    <td>
+                        {% for shift in shifts %}
+                           {% if (shift.shift_id == person.shift) %}
+                               {{ shift.name }}
+                           {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for group in groups %}
+                           {% if (group.group_id == person.group) %}
+                               {{ group.name }}
+                           {% endif %}
+                        {% endfor %}
+                    </td>
                     <td>
                         <a class="{{ 'btn btn-success' if person.is_active else 'btn btn-dark'}}"
                            href="/turn_person/{{ person.person_id }}">
@@ -84,5 +126,4 @@
         </div> <!-- col-md-6 -->
     </div><!-- row -->
 </div><!-- container -->
-
 {% endblock %}

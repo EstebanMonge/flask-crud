@@ -15,8 +15,11 @@ def index():
 
 @app.route('/person')
 def person():
+    roles = Role.query.all()
+    shifts = Shift.query.all()
     persons = Person.query.all()
-    return render_template('index.html', persons=persons)
+    groups = Group.query.all()
+    return render_template('index.html', persons=persons, roles=roles, shifts=shifts, groups=groups)
 
 @app.route('/role')
 def role():
@@ -43,6 +46,9 @@ def add_person():
         email = form.get('email')
         username = form.get('username')
         person_id = form.get('person_id')
+        role = form.get('role')
+        group = form.get('group')
+        shift = form.get('shift')
         is_active = True
         if person_id:
             person = Person.query.get(person_id)
@@ -52,9 +58,9 @@ def add_person():
         
         if not fname or lname or email or username:
             if person_id:
-                person = Person(person_id = person_id, fname = fname, lname = lname, email = email, username = username, is_active = is_active)
+                person = Person(person_id = person_id, fname = fname, lname = lname, email = email, username = username, is_active = is_active, group = group, role = role, shift = shift)
             else:
-                person = Person(fname = fname, lname = lname, email = email, username = username, is_active = is_active)
+                person = Person(fname = fname, lname = lname, email = email, username = username, is_active = is_active, group = group, role = role, shift = shift)
             db.session.add(person)
             db.session.commit()
             return redirect('/person')
