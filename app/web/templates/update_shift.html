@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Edit role</h1>
+            <div class="card">
+                <div class="card-body">
+                    <form action="/add_shift" method="post">
+                        <div class="mb-3">
+                            <label for="shift_id" class="form-label">ID:</label>
+                            <input class="form-control" type="text" name="shift_id" placeholder="ID" value="{{ shift.shift_id }}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name:</label>
+                            <input class="form-control" type="text" name="name" placeholder="Name" value="{{ shift.name }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="start_hour">
+                                <option value="00:00" {% if (shift.start_hour == "00:00") %} selected="selected" {% endif %}>00:00</option>
+                                <option value="00:30" {% if (shift.start_hour == "00:30") %} selected="selected" {% endif %}>00:30</option>
+                                <option value="01:00" {% if (shift.start_hour == "01:00") %} selected="selected" {% endif %}>01:00</option>
+                                <option value="01:30" {% if (shift.start_hour == "01:30") %} selected="selected" {% endif %}>01:30</option>
+                                <option value="02:00" {% if (shift.start_hour == "02:00") %} selected="selected" {% endif %}>02:00</option>
+                                <option value="02:30" {% if (shift.start_hour == "02:30") %} selected="selected" {% endif %}>02:30</option>
+                                <option value="03:00" {% if (shift.start_hour == "03:00") %} selected="selected" {% endif %}>03:00</option>
+                                <option value="03:30" {% if (shift.start_hour == "03:30") %} selected="selected" {% endif %}>03:30</option>
+                                <option value="04:00" {% if (shift.start_hour == "04:00") %} selected="selected" {% endif %}>04:00</option>
+                                <option value="04:30" {% if (shift.start_hour == "04:30") %} selected="selected" {% endif %}>04:30</option>
+                                <option value="05:00" {% if (shift.start_hour == "05:00") %} selected="selected" {% endif %}>05:00</option>
+                                <option value="05:30" {% if (shift.start_hour == "05:30") %} selected="selected" {% endif %}>05:30</option>
+                                <option value="06:00" {% if (shift.start_hour == "06:00") %} selected="selected" {% endif %}>06:00</option>
+                                <option value="06:30" {% if (shift.start_hour == "06:30") %} selected="selected" {% endif %}>06:30</option>
+                                <option value="07:00" {% if (shift.start_hour == "07:00") %} selected="selected" {% endif %}>07:00</option>
+                                <option value="07:30" {% if (shift.start_hour == "07:30") %} selected="selected" {% endif %}>07:30</option>
+                                <option value="08:00" {% if (shift.start_hour == "08:30") %} selected="selected" {% endif %}>08:00</option>
+                                <option value="08:30" {% if (shift.start_hour == "08:30") %} selected="selected" {% endif %}>08:30</option>
+                                <option value="09:00" {% if (shift.start_hour == "09:00") %} selected="selected" {% endif %}>09:00</option>
+                                <option value="09:30" {% if (shift.start_hour == "09:30") %} selected="selected" {% endif %}>09:30</option>
+                                <option value="10:00" {% if (shift.start_hour == "10:30") %} selected="selected" {% endif %}>10:00</option>
+                                <option value="10:30" {% if (shift.start_hour == "10:30") %} selected="selected" {% endif %}>10:30</option>
+                                <option value="11:00" {% if (shift.start_hour == "11:00") %} selected="selected" {% endif %}>11:00</option>
+                                <option value="11:30" {% if (shift.start_hour == "11:30") %} selected="selected" {% endif %}>11:30</option>
+                                <option value="12:00" {% if (shift.start_hour == "12:00") %} selected="selected" {% endif %}>12:00</option>
+                                <option value="12:30" {% if (shift.start_hour == "12:30") %} selected="selected" {% endif %}>12:30</option>
+                                <option value="13:00" {% if (shift.start_hour == "13:00") %} selected="selected" {% endif %}>13:00</option>
+                                <option value="13:30" {% if (shift.start_hour == "13:30") %} selected="selected" {% endif %}>13:30</option>
+                                <option value="14:00" {% if (shift.start_hour == "14:00") %} selected="selected" {% endif %}>14:00</option>
+                                <option value="14:30" {% if (shift.start_hour == "14:30") %} selected="selected" {% endif %}>14:30</option>
+                                <option value="15:00" {% if (shift.start_hour == "15:00") %} selected="selected" {% endif %}>15:00</option>
+                                <option value="15:30" {% if (shift.start_hour == "15:30") %} selected="selected" {% endif %}>15:30</option>
+                                <option value="16:00" {% if (shift.start_hour == "16:00") %} selected="selected" {% endif %}>16:00</option>
+                                <option value="16:30" {% if (shift.start_hour == "16:30") %} selected="selected" {% endif %}>16:30</option>
+                                <option value="17:00" {% if (shift.start_hour == "17:00") %} selected="selected" {% endif %}>17:00</option>
+                                <option value="17:30" {% if (shift.start_hour == "17:30") %} selected="selected" {% endif %}>17:30</option>
+                                <option value="18:00" {% if (shift.start_hour == "18:00") %} selected="selected" {% endif %}>18:00</option>
+                                <option value="18:30" {% if (shift.start_hour == "18:30") %} selected="selected" {% endif %}>18:30</option>
+                                <option value="19:00" {% if (shift.start_hour == "19:00") %} selected="selected" {% endif %}>19:00</option>
+                                <option value="19:30" {% if (shift.start_hour == "19:30") %} selected="selected" {% endif %}>19:30</option>
+                                <option value="20:00" {% if (shift.start_hour == "20:00") %} selected="selected" {% endif %}>20:00</option>
+                                <option value="20:30" {% if (shift.start_hour == "20:30") %} selected="selected" {% endif %}>20:30</option>
+                                <option value="21:00" {% if (shift.start_hour == "21:00") %} selected="selected" {% endif %}>21:00</option>
+                                <option value="21:30" {% if (shift.start_hour == "21:30") %} selected="selected" {% endif %}>21:30</option>
+                                <option value="22:00" {% if (shift.start_hour == "22:00") %} selected="selected" {% endif %}>22:00</option>
+                                <option value="22:30" {% if (shift.start_hour == "22:30") %} selected="selected" {% endif %}>22:30</option>
+                                <option value="23:00" {% if (shift.start_hour == "23:00") %} selected="selected" {% endif %}>23:00</option>
+                                <option value="23:30" {% if (shift.start_hour == "23:30") %} selected="selected" {% endif %}>23:30</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="end_hour">
+                                <option value="00:00" {% if (shift.end_hour == "00:00") %} selected="selected" {% endif %}>00:00</option>
+                                <option value="00:30" {% if (shift.end_hour == "00:30") %} selected="selected" {% endif %}>00:30</option>
+                                <option value="01:00" {% if (shift.end_hour == "01:00") %} selected="selected" {% endif %}>01:00</option>
+                                <option value="01:30" {% if (shift.end_hour == "01:30") %} selected="selected" {% endif %}>01:30</option>
+                                <option value="02:00" {% if (shift.end_hour == "02:00") %} selected="selected" {% endif %}>02:00</option>
+                                <option value="02:30" {% if (shift.end_hour == "02:30") %} selected="selected" {% endif %}>02:30</option>
+                                <option value="03:00" {% if (shift.end_hour == "03:00") %} selected="selected" {% endif %}>03:00</option>
+                                <option value="03:30" {% if (shift.end_hour == "03:30") %} selected="selected" {% endif %}>03:30</option>
+                                <option value="04:00" {% if (shift.end_hour == "04:00") %} selected="selected" {% endif %}>04:00</option>
+                                <option value="04:30" {% if (shift.end_hour == "04:30") %} selected="selected" {% endif %}>04:30</option>
+                                <option value="05:00" {% if (shift.end_hour == "05:00") %} selected="selected" {% endif %}>05:00</option>
+                                <option value="05:30" {% if (shift.end_hour == "05:30") %} selected="selected" {% endif %}>05:30</option>
+                                <option value="06:00" {% if (shift.end_hour == "06:00") %} selected="selected" {% endif %}>06:00</option>
+                                <option value="06:30" {% if (shift.end_hour == "06:30") %} selected="selected" {% endif %}>06:30</option>
+                                <option value="07:00" {% if (shift.end_hour == "07:00") %} selected="selected" {% endif %}>07:00</option>
+                                <option value="07:30" {% if (shift.end_hour == "07:30") %} selected="selected" {% endif %}>07:30</option>
+                                <option value="08:00" {% if (shift.end_hour == "08:30") %} selected="selected" {% endif %}>08:00</option>
+                                <option value="08:30" {% if (shift.end_hour == "08:30") %} selected="selected" {% endif %}>08:30</option>
+                                <option value="09:00" {% if (shift.end_hour == "09:00") %} selected="selected" {% endif %}>09:00</option>
+                                <option value="09:30" {% if (shift.end_hour == "09:30") %} selected="selected" {% endif %}>09:30</option>
+                                <option value="10:00" {% if (shift.end_hour == "10:30") %} selected="selected" {% endif %}>10:00</option>
+                                <option value="10:30" {% if (shift.end_hour == "10:30") %} selected="selected" {% endif %}>10:30</option>
+                                <option value="11:00" {% if (shift.end_hour == "11:00") %} selected="selected" {% endif %}>11:00</option>
+                                <option value="11:30" {% if (shift.end_hour == "11:30") %} selected="selected" {% endif %}>11:30</option>
+                                <option value="12:00" {% if (shift.end_hour == "12:00") %} selected="selected" {% endif %}>12:00</option>
+                                <option value="12:30" {% if (shift.end_hour == "12:30") %} selected="selected" {% endif %}>12:30</option>
+                                <option value="13:00" {% if (shift.end_hour == "13:00") %} selected="selected" {% endif %}>13:00</option>
+                                <option value="13:30" {% if (shift.end_hour == "13:30") %} selected="selected" {% endif %}>13:30</option>
+                                <option value="14:00" {% if (shift.end_hour == "14:00") %} selected="selected" {% endif %}>14:00</option>
+                                <option value="14:30" {% if (shift.end_hour == "14:30") %} selected="selected" {% endif %}>14:30</option>
+                                <option value="15:00" {% if (shift.end_hour == "15:00") %} selected="selected" {% endif %}>15:00</option>
+                                <option value="15:30" {% if (shift.end_hour == "15:30") %} selected="selected" {% endif %}>15:30</option>
+                                <option value="16:00" {% if (shift.end_hour == "16:00") %} selected="selected" {% endif %}>16:00</option>
+                                <option value="16:30" {% if (shift.end_hour == "16:30") %} selected="selected" {% endif %}>16:30</option>
+                                <option value="17:00" {% if (shift.end_hour == "17:00") %} selected="selected" {% endif %}>17:00</option>
+                                <option value="17:30" {% if (shift.end_hour == "17:30") %} selected="selected" {% endif %}>17:30</option>
+                                <option value="18:00" {% if (shift.end_hour == "18:00") %} selected="selected" {% endif %}>18:00</option>
+                                <option value="18:30" {% if (shift.end_hour == "18:30") %} selected="selected" {% endif %}>18:30</option>
+                                <option value="19:00" {% if (shift.end_hour == "19:00") %} selected="selected" {% endif %}>19:00</option>
+                                <option value="19:30" {% if (shift.end_hour == "19:30") %} selected="selected" {% endif %}>19:30</option>
+                                <option value="20:00" {% if (shift.end_hour == "20:00") %} selected="selected" {% endif %}>20:00</option>
+                                <option value="20:30" {% if (shift.end_hour == "20:30") %} selected="selected" {% endif %}>20:30</option>
+                                <option value="21:00" {% if (shift.end_hour == "21:00") %} selected="selected" {% endif %}>21:00</option>
+                                <option value="21:30" {% if (shift.end_hour == "21:30") %} selected="selected" {% endif %}>21:30</option>
+                                <option value="22:00" {% if (shift.end_hour == "22:00") %} selected="selected" {% endif %}>22:00</option>
+                                <option value="22:30" {% if (shift.end_hour == "22:30") %} selected="selected" {% endif %}>22:30</option>
+                                <option value="23:00" {% if (shift.end_hour == "23:00") %} selected="selected" {% endif %}>23:00</option>
+                                <option value="23:30" {% if (shift.end_hour == "23:30") %} selected="selected" {% endif %}>23:30</option>
+                            </select>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" name="sunday"  {% if shift.sunday %} checked=true {% endif %} >
+                            <label class="form-check-label" for="sunday">
+                                Sunday
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" name="monday" {% if shift.monday %} checked=true {% endif %}>
+                            <label class="form-check-label" for="monday">
+                                Monday
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" name="tuesday" {% if shift.tuesday %} checked=true {% endif %}>
+                            <label class="form-check-label" for="tuesday">
+                                Tuesday
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" name="wednesday" {% if shift.wednesday %} checked=true {% endif %}>
+                            <label class="form-check-label" for="wednesday">
+                                Wednesday
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" name="thursday" {% if shift.thursday %} checked=true {% endif %}>
+                            <label class="form-check-label" for="thursday">
+                                Thursday
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" name="friday" {% if shift.friday %} checked=true {% endif %}>
+                            <label class="form-check-label" for="friday">
+                                Friday
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" name="saturday" {% if shift.saturday %} checked=true {% endif %}>
+                            <label class="form-check-label" for="saturday">
+                                Saturday
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" type="submit">
+                            Update 
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+

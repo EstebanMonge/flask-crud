@@ -11,8 +11,7 @@ jedi = "of the jedi"
 @app.route('/')
 @app.route('/index')
 def index():
-    persons = Person.query.all()
-    return render_template('index.html', persons=persons)
+    return render_template('index.html')
 
 @app.route('/person')
 def person():
@@ -52,7 +51,10 @@ def add_person():
                 db.session.commit()
         
         if not fname or lname or email or username:
-            person = Person(fname = fname, lname = lname, email = email, username = username, is_active = is_active)
+            if person_id:
+                person = Person(person_id = person_id, fname = fname, lname = lname, email = email, username = username, is_active = is_active)
+            else:
+                person = Person(fname = fname, lname = lname, email = email, username = username, is_active = is_active)
             db.session.add(person)
             db.session.commit()
             return redirect('/person')
@@ -72,7 +74,10 @@ def add_role():
                 db.session.commit()
 
         if name:
-            role = Role(name = name)
+            if role_id:
+                role = Role(role_id = role_id, name = name)
+            else:
+                role = Role(name = name)
             db.session.add(role)
             db.session.commit()
             return redirect('/role')
@@ -122,7 +127,10 @@ def add_shift():
                 db.session.commit()
 
         if not name or start_hour or end_hour or sunday or monday or tuesday or wednesday or thursday or friday or saturday:
-            shift = Shift(name = name, start_hour = start_hour, end_hour = end_hour, sunday = sunday, monday = monday, tuesday = tuesday, wednesday = wednesday, thursday = thursday, friday = friday, saturday = saturday)
+            if shift_id:
+                shift = Shift(shift_id = shift_id, name = name, start_hour = start_hour, end_hour = end_hour, sunday = sunday, monday = monday, tuesday = tuesday, wednesday = wednesday, thursday = thursday, friday = friday, saturday = saturday)
+            else:
+                shift = Shift(name = name, start_hour = start_hour, end_hour = end_hour, sunday = sunday, monday = monday, tuesday = tuesday, wednesday = wednesday, thursday = thursday, friday = friday, saturday = saturday)
             db.session.add(shift)
             db.session.commit()
             return redirect('/shift')
@@ -137,26 +145,58 @@ def add_group():
         group_id = form.get('group_id')
         if group_id:
             group = Group.query.get(group_id)
-            if role:
+            if group:
                 db.session.delete(group)
                 db.session.commit()
 
         if name:
-            group = Group(name = name)
+            if group_id:
+                group = Group(group_id = group_id, name = name)
+            else:
+                group = Group(name = name)
             db.session.add(group)
             db.session.commit()
             return redirect('/group')
 
     return "of the jedi"
 
+#update routes
 @app.route('/update_person/<int:id>')
-def updateRoute(id):
+def update_person(id):
     if not id or id != 0:
         person = Person.query.get(id)
         if person:
             return render_template('update_person.html', person=person)
 
     return "of the jedi"
+
+@app.route('/update_role/<int:id>')
+def update_role(id):
+    if not id or id != 0:
+        role = Role.query.get(id)
+        if role:
+            return render_template('update_role.html', role=role)
+
+    return "of the jedi"
+
+@app.route('/update_group/<int:id>')
+def update_group(id):
+    if not id or id != 0:
+        group = Group.query.get(id)
+        if group:
+            return render_template('update_group.html', group=group)
+
+    return "of the jedi"
+
+@app.route('/update_shift/<int:id>')
+def update_shift(id):
+    if not id or id != 0:
+        shift = Shift.query.get(id)
+        if shift:
+            return render_template('update_shift.html', shift=shift)
+
+    return "of the jedi"
+
 
 #delete routes
 @app.route('/delete_person/<int:id>')
