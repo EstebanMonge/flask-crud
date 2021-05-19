@@ -6,6 +6,10 @@
 {% include "shift.html" %}
 {% elif request.endpoint == 'group' %}
 {% include "group.html" %}
+{% elif request.endpoint == 'platform' %}
+{% include "platform.html" %}
+{% elif request.endpoint == 'handover' %}
+{% include "handover.html" %}
 {% else %}
 {% include "content.html" %}
 {% endif %}

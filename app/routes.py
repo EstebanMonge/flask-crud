@@ -4,6 +4,8 @@ from app.models import Person
 from app.models import Group
 from app.models import Role 
 from app.models import Shift 
+from app.models import Platform 
+from app.models import Handover
 
 jedi = "of the jedi"
 
@@ -19,8 +21,17 @@ def person():
     shifts = Shift.query.all()
     persons = Person.query.all()
     groups = Group.query.all()
-    return render_template('index.html', persons=persons, roles=roles, shifts=shifts, groups=groups)
+    platforms = Platform.query.all()
+    return render_template('index.html', persons=persons, roles=roles, shifts=shifts, groups=groups, platforms=platforms)
 
+@app.route('/handover')
+def handover():
+    handovers = Handover.query.all()
+    persons = Person.query.all()
+    platforms = Platform.query.all()
+    return render_template('index.html', handovers=handovers, persons=persons, platforms=platforms)
+
+@app.route('/role')
 @app.route('/role')
 def role():
     roles = Role.query.all()
@@ -35,6 +46,11 @@ def group():
 def shift():
     shifts = Shift.query.all()
     return render_template('index.html', shifts=shifts)
+
+@app.route('/platform')
+def platform():
+    platforms = Platform.query.all()
+    return render_template('index.html', platforms=platforms)
 
 #add routes
 @app.route('/add_person', methods=['POST'])
@@ -87,6 +103,29 @@ def add_role():
             db.session.add(role)
             db.session.commit()
             return redirect('/role')
+
+    return "of the jedi"
+
+@app.route('/add_platform', methods=['POST'])
+def add_platform():
+    if request.method == 'POST':
+        form = request.form
+        name = form.get('name')
+        platform_id = form.get('platform_id')
+        if platform_id:
+            platform = Platform.query.get(platform_id)
+            if role:
+                db.session.delete(platform)
+                db.session.commit()
+
+        if name:
+            if platform_id:
+                platform = Platform(platform_id = platform_id, name = name)
+            else:
+                platform = Platform(name = name)
+            db.session.add(platform)
+            db.session.commit()
+            return redirect('/platform')
 
     return "of the jedi"
 
@@ -176,6 +215,15 @@ def update_person(id):
 
     return "of the jedi"
 
+@app.route('/update_platform/<int:id>')
+def update_platform(id):
+    if not id or id != 0:
+        platform = Platform.query.get(id)
+        if platform:
+            return render_template('update_platform.html', platform=platform)
+
+    return "of the jedi"
+
 @app.route('/update_role/<int:id>')
 def update_role(id):
     if not id or id != 0:
@@ -224,6 +272,17 @@ def delete_role(id):
             db.session.delete(role)
             db.session.commit()
         return redirect('/role')
+
+    return "of the jedi"
+
+@app.route('/delete_platform/<int:id>')
+def delete_platform(id):
+    if not id or id != 0:
+        platform = Platform.query.get(id)
+        if platform:
+            db.session.delete(platform)
+            db.session.commit()
+        return redirect('/platform')
 
     return "of the jedi"
 

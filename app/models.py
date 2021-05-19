@@ -36,3 +36,16 @@ class Shift(db.Model):
 class Group(db.Model):
     group_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, nullable=False)
+
+class Handover(db.Model):
+    ho_id = db.Column(db.Integer, primary_key=True)
+    ticket = db.Column(db.String(64), index=True, nullable=False)
+    ticket_type = db.Column(db.String(64), index=True, nullable=False)
+    servers = db.Column(db.String(300), index=True, nullable=False)
+    platform = db.Column(db.String(64), index=True, nullable=False)
+    steps = db.Column(db.String(300), index=True, nullable=False)
+    next_steps = db.Column(db.String(300), index=True, nullable=False)
+    chat_url = db.Column(db.String(300), index=True, nullable=False)
+    owner = db.Column(db.String(300), index=True, nullable=False)
+    old_owners = db.Column(db.String(300), index=True, nullable=False)
+    state = db.Column(db.String(64), index=True, nullable=False)

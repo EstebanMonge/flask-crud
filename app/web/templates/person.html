@@ -49,6 +49,14 @@
                             {% endfor %}
                             </select>
                         </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="group">
+                                <option selected>Select platform</option>
+                            {% for platform in platforms %}
+                                <option value="{{ platform.platform_id }}">{{ platform.name }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
                         <button class="btn btn-primary" type="submit">
                             Add
                         </button>
@@ -89,7 +97,13 @@
                            {% endif %}
                         {% endfor %}
                     </td>
-                    <td>{{ person.platform }}</td>
+                    <td>
+                        {% for platform in platforms %}
+                           {% if (platform.platform_id == person.platform) %}
+                               {{ platform.name }}
+                           {% endif %}
+                        {% endfor %}
+                    </td>
                     <td>
                         {% for shift in shifts %}
                            {% if (shift.shift_id == person.shift) %}
@@ -121,9 +135,9 @@
                 </tr>
                 {% endfor %}
                 </tbody>
-
             </table>
         </div> <!-- col-md-6 -->
     </div><!-- row -->
 </div><!-- container -->
+
 {% endblock %}

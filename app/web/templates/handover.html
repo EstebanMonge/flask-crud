@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <h1>Handover</h1>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/add_handover" method="post">
+                        <div class="mb-3">
+                            <label for="ticket" class="form-label">Ticket:</label>
+                            <input class="form-control" type="text" name="ticket" placeholder="Ticket" required>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="ticket_type">
+                                <option selected>Select ticket type</option>
+                                <option value="change">Change</option>
+                                <option value="service_request">Service Request</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="servers" class="form-label">Servers:</label>
+                            <textarea class="form-control" name="email" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="platform">
+                                <option selected>Select platform</option>
+                            {% for platform in platforms %}
+                                <option value="{{ platform.platform_id }}">{{ platform.name }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="steps" class="form-label">Steps:</label>
+                            <textarea class="form-control" name="steps" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="next_steps" class="form-label">Next steps:</label>
+                            <textarea class="form-control" name="next_steps" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="chat_url" class="form-label">Chat URL:</label>
+                            <input class="form-control" type="text" name="chat_url" placeholder="Chat URL" required>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="owner">
+                                <option selected>Select owner</option>
+                            {% for person in persons %}
+                                <option value="{{ person.person_id }}">{{ person.username }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="old_owners" class="form-label">Old owners:</label>
+                            <input class="form-control" type="text" name="old_owners" placeholder="Old owners">
+                        </div>
+                        <button class="btn btn-primary" type="submit">
+                            Add
+                        </button>
+                    </form>
+                </div><!--card-body" -->
+            </div><!-- card --> 
+        </div><!-- col-md-6 -->
+        <div class="col-md-3">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Ticket</th>
+                    <th>Ticket type</th>
+                    <th>Servers</th>
+                    <th>Platform</th>
+                    <th>Steps</th>
+                    <th>Next steps</th>
+                    <th>chat_url</th>
+                    <th>Owner</th>
+                    <th>Old owners</th>
+                    <th>State</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for handover in handovers %}
+                <tr>
+                    <td>{{ handover.handover_id }}</td>
+                    <td>{{ handover.ticket }}</td>
+                    <td>{{ handover.ticket_type }}</td>
+                    <td>{{ handover.servers }}</td>
+                    <td>
+                        {% for platform in platforms %}
+                           {% if (platform.platform_id == handover.platform) %}
+                               {{ platform.name }}
+                           {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ handover.steps }}</td>
+                    <td>{{ handover.next_steps }}</td>
+                    <td>{{ handover.chat_url }}</td>
+                    <td>
+                        {% for person in persons %}
+                           {% if (person.person_id == handover.owner) %}
+                               {{ person.name }}
+                           {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ handover.state }}</td>
+                    <td>
+                        <a class="{{ 'btn btn-success' if handover.state else 'btn btn-dark'}}"
+                           href="/turn_handover/{{ person.person_id }}">
+                           Activate/Deactivate 
+                        </a>
+                        <a class="btn btn-danger"
+                           href="/delete_handover/{{ handover.handover_id }}">
+                            Delete
+                        </a>
+                        <a class="btn btn-info"
+                           href="/update_handover/{{ handover.handover_id }}">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div> <!-- col-md-6 -->
+    </div><!-- row -->
+</div><!-- container -->
+
+{% endblock %}
