@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <h1>Chat</h1>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/add_chat" method="post">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name:</label>
+                            <input class="form-control" type="text" name="name" placeholder="Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="chat_url" class="form-label">Chat URL:</label>
+                            <input class="form-control" type="text" name="chat_url" placeholder="Chat URL" required>
+                        </div>
+                        <button class="btn btn-primary" type="submit">
+                            Add
+                        </button>
+                    </form>
+                </div><!--card-body" -->
+            </div><!-- card --> 
+        </div><!-- col-md-6 -->
+        <div class="col-md-3">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Chat URL</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for chat in chats %}
+                <tr>
+                    <td>{{ chat.chat_id }}</td>
+                    <td>{{ chat.name }}</td>
+                    <td>{{ chat.chat_url }}</td>
+                    <td>
+                        <a class="btn btn-danger"
+                           href="/delete_chat/{{ chat.chat_id }}">
+                            Delete
+                        </a>
+                        <a class="btn btn-info"
+                           href="/update_chat/{{ chat.chat_id }}">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div> <!-- col-md-6 -->
+    </div><!-- row -->
+</div><!-- container -->
+
+{% endblock %}

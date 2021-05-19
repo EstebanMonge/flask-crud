@@ -10,6 +10,8 @@
 {% include "platform.html" %}
 {% elif request.endpoint == 'handover' %}
 {% include "handover.html" %}
+{% elif request.endpoint == 'chat' %}
+{% include "chat.html" %}
 {% else %}
 {% include "content.html" %}
 {% endif %}

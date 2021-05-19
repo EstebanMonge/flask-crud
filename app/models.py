@@ -20,6 +20,11 @@ class Platform(db.Model):
     platform_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, nullable=False)
 
+class Chat(db.Model):
+    chat_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), index=True, nullable=False)
+    chat_url = db.Column(db.String(300), index=True, nullable=False)
+
 class Shift(db.Model):
     shift_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, nullable=False)

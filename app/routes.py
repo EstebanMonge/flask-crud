@@ -6,6 +6,7 @@ from app.models import Role
 from app.models import Shift 
 from app.models import Platform 
 from app.models import Handover
+from app.models import Chat 
 
 jedi = "of the jedi"
 
@@ -31,7 +32,12 @@ def handover():
     platforms = Platform.query.all()
     return render_template('index.html', handovers=handovers, persons=persons, platforms=platforms)
 
-@app.route('/role')
+@app.route('/chat')
+def chat():
+    chats = Chat.query.all()
+    return render_template('index.html', chats=chats)
+
+
 @app.route('/role')
 def role():
     roles = Role.query.all()
