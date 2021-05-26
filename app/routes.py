@@ -71,6 +71,7 @@ def add_person():
         role = form.get('role')
         group = form.get('group')
         shift = form.get('shift')
+        platform = form.get('platform')
         is_active = True
         if person_id:
             person = Person.query.get(person_id)
@@ -80,9 +81,9 @@ def add_person():
         
         if not fname or lname or email or username:
             if person_id:
-                person = Person(person_id = person_id, fname = fname, lname = lname, email = email, username = username, is_active = is_active, group = group, role = role, shift = shift)
+                person = Person(person_id = person_id, fname = fname, lname = lname, email = email, username = username, is_active = is_active, group = group, role = role, shift = shift, platform=platform)
             else:
-                person = Person(fname = fname, lname = lname, email = email, username = username, is_active = is_active, group = group, role = role, shift = shift)
+                person = Person(fname = fname, lname = lname, email = email, username = username, is_active = is_active, group = group, role = role, shift = shift, platform=platform)
             db.session.add(person)
             db.session.commit()
             return redirect('/person')
@@ -134,6 +135,39 @@ def add_platform():
             return redirect('/platform')
 
     return "of the jedi"
+
+@app.route('/add_handover', methods=['POST'])
+def add_handover():
+    if request.method == 'POST':
+        form = request.form
+        ho_id = form.get('ho_id')
+        ticket = form.get('ticket')
+        ticket_type = form.get('ticket_type')
+        servers = form.get('servers')
+        platform = form.get('platform')
+        steps = form.get('steps')
+        next_steps = form.get('next_steps')
+        chat_url = form.get('chat_url')
+        owner = form.get('owner')
+        old_owners = form.get('old_owners')
+        is_active = True
+        if ho_id:
+            ho = Handover.query.get(ho_id)
+            if role:
+                db.session.delete(ho)
+                db.session.commit()
+
+        if not ticket or ticket_type or servers or steps or next_steps or chat_url or owner or old_owners:
+            if ho_id:
+                handover = Handover(ho_id = ho_id, ticket = ticket, ticket_type = ticket_type, servers = servers, platform=platform, steps = steps, next_steps = next_steps, chat_url = chat_url, owner = owner, old_owners = old_owners, is_active = is_active) 
+            else:
+                handover = Handover(ticket = ticket, ticket_type = ticket_type, servers = servers, platform = platform, steps = steps, next_steps = next_steps, chat_url = chat_url, owner = owner, old_owners = old_owners, is_active = is_active) 
+            db.session.add(handover)
+            db.session.commit()
+            return redirect('/handover')
+
+    return "of the jedi"
+
 
 @app.route('/add_shift', methods=['POST'])
 def add_shift():
@@ -211,13 +245,50 @@ def add_group():
 
     return "of the jedi"
 
+@app.route('/add_chat', methods=['POST'])
+def add_chat():
+    if request.method == 'POST':
+        form = request.form
+        name = form.get('name')
+        chat_url = form.get('chat_url')
+        chat_id = form.get('chat_id')
+        if chat_id:
+            chat = Chat.query.get(chat_id)
+            if chat:
+                db.session.delete(chat)
+                db.session.commit()
+
+        if name:
+            if chat_id:
+                chat =Chat(chat_id = chat_id, name = name, chat_url = chat_url)
+            else:
+                chat = Chat(name = name, chat_url = chat_url)
+            db.session.add(chat)
+            db.session.commit()
+            return redirect('/chat')
+
+    return "of the jedi"
+
 #update routes
 @app.route('/update_person/<int:id>')
 def update_person(id):
     if not id or id != 0:
         person = Person.query.get(id)
+        roles = Role.query.all()
+        groups = Group.query.all()
+        shifts = Shift.query.all()
+        platforms = Platform.query.all()
         if person:
-            return render_template('update_person.html', person=person)
+            return render_template('update_person.html', person=person, roles=roles, groups=groups, shifts=shifts, platforms=platforms)
+
+    return "of the jedi"
+
+@app.route('/update_chat/<int:id>')
+def update_chat(id):
+    if not id or id != 0:
+        chat = Chat.query.get(id)
+        if chat:
+            return render_template('update_chat.html', chat=chat)
 
     return "of the jedi"
 
@@ -227,6 +298,17 @@ def update_platform(id):
         platform = Platform.query.get(id)
         if platform:
             return render_template('update_platform.html', platform=platform)
+
+    return "of the jedi"
+
+@app.route('/update_handover/<int:id>')
+def update_handover(id):
+    if not id or id != 0:
+        handover = Handover.query.get(id)
+        platforms = Platform.query.all()
+        persons = Person.query.all()
+        if handover:
+            return render_template('update_handover.html', handover=handover, platforms=platforms, persons=persons)
 
     return "of the jedi"
 
@@ -267,6 +349,17 @@ def delete_person(id):
             db.session.delete(person)
             db.session.commit()
         return redirect('/person')
+
+    return "of the jedi"
+
+@app.route('/delete_chat/<int:id>')
+def chat_person(id):
+    if not id or id != 0:
+        chat = Chat.query.get(id)
+        if chat:
+            db.session.delete(chat)
+            db.session.commit()
+        return redirect('/chat')
 
     return "of the jedi"
 
@@ -314,16 +407,36 @@ def delete_group(id):
 
     return "of the jedi"
 
-@app.route('/turn_person/<int:id>')
+@app.route('/delete_handover/<int:id>')
+def delete_handover(id):
+    if not id or id != 0:
+        handover = Handover.query.get(id)
+        if handover:
+            db.session.delete(handover)
+            db.session.commit()
+        return redirect('/handover')
+
+    return "of the jedi"
 
 @app.route('/turn_person/<int:id>')
-def turn(id):
+def turn_person(id):
     if not id or id != 0:
         person = Person.query.get(id)
         if person:
             person.is_active = not person.is_active
             db.session.commit()
         return redirect('/person')
+
+    return "of the jedi"
+
+@app.route('/turn_handover/<int:id>')
+def turn_handover(id):
+    if not id or id != 0:
+        handover = Handover.query.get(id)
+        if handover:
+            handover.is_active = not handover.is_active
+            db.session.commit()
+        return redirect('/handover')
 
     return "of the jedi"
 

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Edit chat</h1>
+            <div class="card">
+                <div class="card-body">
+                    <form action="/add_chat" method="post">
+                        <div class="mb-3">
+                            <label for="chat_id" class="form-label">ID:</label>
+                            <input class="form-control" type="text" name="chat_id" placeholder="ID" value="{{ chat.chat_id }}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name:</label>
+                            <input class="form-control" type="text" name="name" placeholder="Name" value="{{ chat.name }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="chat_url" class="form-label">Chat URL:</label>
+                            <input class="form-control" type="text" name="chat_url" placeholder="Chat URL" value="{{ chat.chat_url }}" required>
+                        </div>
+                        <button class="btn btn-primary" type="submit">
+                            Update 
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

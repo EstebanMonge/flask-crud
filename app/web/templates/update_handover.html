@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <h1>Handover</h1>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/add_handover" method="post">
+                        <div class="mb-3">
+                            <label for="ho_id" class="form-label">ID:</label>
+                            <input class="form-control" type="text" name="ho_id" placeholder="ID" value="{{ handover.ho_id }}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ticket" class="form-label">Ticket:</label>
+                            <input class="form-control" type="text" name="ticket" placeholder="Ticket" value="{{ handover.ticket }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="ticket_type">
+                                <option selected>Select ticket type</option>
+                                <option value="change" {% if (handover.ticket_type == "change") %} selected="selected" {% endif %}>Change</option>
+                                <option value="service_request" {% if (handover.ticket_type == "service_request") %} selected="selected" {% endif %}>Service Request</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="servers" class="form-label">Servers:</label>
+                            <textarea class="form-control" name="servers" rows="3" required>{{ handover.servers }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="platform">
+                                <option selected>Select platform</option>
+                            {% for platform in platforms %}
+                                <option value="{{ platform.platform_id }}" {% if (platform.platform_id == handover.platform) %} selected="selected" {% endif %}>{{ platform.name }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="steps" class="form-label">Steps:</label>
+                            <textarea class="form-control" name="steps" rows="3" required>{{ handover.steps }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="next_steps" class="form-label">Next steps:</label>
+                            <textarea class="form-control" name="next_steps" rows="3" required>{{ handover.next_steps }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="chat_url" class="form-label">Chat URL:</label>
+                            <input class="form-control" type="text" name="chat_url" placeholder="Chat URL" value="{{ handover.ticket }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="owner">
+                                <option selected>Select owner</option>
+                            {% for person in persons %}
+                                <option value="{{ person.person_id }}" {% if (person.person_id == handover.owner) %} selected="selected" {% endif %}>{{ person.username }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="old_owners" class="form-label">Old owners:</label>
+                            <input class="form-control" type="text" name="old_owners" placeholder="Old owners" value="{{ handover.old_owners }}">
+                        </div>
+                        <button class="btn btn-primary" type="submit">
+                            Add
+                        </button>
+                    </form>
+                </div><!--card-body" -->
+            </div><!-- card --> 
+        </div><!-- col-md-6 -->
+    </div><!-- row -->
+</div><!-- container -->
+
+{% endblock %}

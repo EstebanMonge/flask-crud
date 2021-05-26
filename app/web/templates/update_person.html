@@ -28,6 +28,38 @@
                         <div class="mb-3">
                             <input class="form-control" type="text" name="username" placeholder="Username" value="{{ person.username }}" required>
                         </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="role">
+                                <option selected>Select role</option>
+                            {% for role in roles %}
+                                <option value="{{ role.role_id }}" {% if (role.role_id == person.role) %} selected="selected" {% endif %}>{{ role.name }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="shift">
+                                <option selected>Select shift</option>
+                            {% for shift in shifts %}
+                                <option value="{{ shift.shift_id }}" {% if (shift.shift_id == person.shift) %} selected="selected" {% endif %}>{{ shift.name }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="group">
+                                <option selected>Select group</option>
+                            {% for group in groups %}
+                                <option value="{{ group.group_id }}" {% if (group.group_id == person.group) %} selected="selected" {% endif %}>{{ group.name }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" name="platform">
+                                <option selected>Select platform</option>
+                            {% for platform in platforms %}
+                                <option value="{{ platform.platform_id }}" {% if (platform.platform_id == person.platform) %} selected="selected" {% endif %}>{{ platform.name }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
                         <button class="btn btn-primary" type="submit">
                             Update 
                         </button>

@@ -22,7 +22,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="servers" class="form-label">Servers:</label>
-                            <textarea class="form-control" name="email" rows="3" required></textarea>
+                            <textarea class="form-control" name="servers" rows="3" required></textarea>
                         </div>
                         <div class="mb-3">
                             <select class="form-select" name="platform">
@@ -74,7 +74,7 @@
                     <th>Platform</th>
                     <th>Steps</th>
                     <th>Next steps</th>
-                    <th>chat_url</th>
+                    <th>Chat URL</th>
                     <th>Owner</th>
                     <th>Old owners</th>
                     <th>State</th>
@@ -84,7 +84,7 @@
                 <tbody>
                 {% for handover in handovers %}
                 <tr>
-                    <td>{{ handover.handover_id }}</td>
+                    <td>{{ handover.ho_id }}</td>
                     <td>{{ handover.ticket }}</td>
                     <td>{{ handover.ticket_type }}</td>
                     <td>{{ handover.servers }}</td>
@@ -101,24 +101,30 @@
                     <td>
                         {% for person in persons %}
                            {% if (person.person_id == handover.owner) %}
-                               {{ person.name }}
+                               {{ person.username }}
                            {% endif %}
                         {% endfor %}
                     </td>
-                    <td>{{ handover.state }}</td>
+                    <td>{{ handover.old_owners }}</td>
+                    <td>{{ handover.is_active }}</td>
                     <td>
-                        <a class="{{ 'btn btn-success' if handover.state else 'btn btn-dark'}}"
-                           href="/turn_handover/{{ person.person_id }}">
+                        <a class="{{ 'btn btn-success' if handover.is_active else 'btn btn-dark'}}"
+                           href="/turn_handover/{{ handover.ho_id }}">
                            Activate/Deactivate 
                         </a>
                         <a class="btn btn-danger"
-                           href="/delete_handover/{{ handover.handover_id }}">
+                           href="/delete_handover/{{ handover.ho_id }}">
                             Delete
                         </a>
                         <a class="btn btn-info"
-                           href="/update_handover/{{ handover.handover_id }}">
+                           href="/update_handover/{{ handover.ho_id }}">
                             Edit
                         </a>
+                        <a class="btn btn-secondary"
+                           href="/reassign_handover/{{ handover.ho_id }}">
+                            Reassign
+                        </a>
+                    </td>
                     </td>
                 </tr>
                 {% endfor %}
