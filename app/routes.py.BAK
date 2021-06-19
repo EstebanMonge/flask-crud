@@ -1,0 +1,27 @@
+from flask import Flask
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from app import app, db
+from app.models import Person
+from app.models import Group
+from app.models import Role
+from app.models import Shift
+from app.models import Platform
+from app.models import Handover
+from app.models import Chat
+
+# set optional bootswatch theme
+app.config['FLASK_ADMIN_SWATCH'] = 'default'
+
+admin = Admin(app, name='Son Gohan', template_mode='bootstrap4')
+# Add administrative views here
+admin.add_view(ModelView(Person, db.session))
+admin.add_view(ModelView(Role, db.session))
+admin.add_view(ModelView(Platform, db.session))
+admin.add_view(ModelView(Chat, db.session))
+admin.add_view(ModelView(Shift, db.session))
+admin.add_view(ModelView(Group, db.session))
+admin.add_view(ModelView(Handover, db.session))
+
+if __name__ == "__main__":
+   app.run()

@@ -123,9 +123,14 @@
                            href="/turn_person/{{ person.person_id }}">
                            Activate/Deactivate 
                         </a>
-                        <button type="button" class="confirmDelete btn btn-danger" data-id="{{ person.person_id }}" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                            Delete 
-                        </button>
+                        <a class="btn btn-danger"
+                           href="/delete_person/{{ person.person_id }}">
+                            Delete
+                        </a>
+<!-- Button trigger modal -->
+<button type="button" class="confirmDelete btn btn-primary" data-id="caca" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
                         <a class="btn btn-info"
                            href="/update_person/{{ person.person_id }}">
                             Edit
@@ -139,32 +144,27 @@
     </div><!-- row -->
 </div><!-- container -->
 <!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="deleteModalLabel">Confirm deletion</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Can you confirm the deletion of person with the next ID:
-        <input class="form-control" type="text" id="personId" name="personId" placeholder="" readonly required>
+                            <input class="form-control" type="text" id="caca" name="caca" placeholder="" required>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <a class="btn btn-danger deletePerson"
-           href="#">
-           Delete
-        </a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
 <script language="JavaScript" type="text/javascript">
 $(document).on("click", ".confirmDelete", function () {
-     var personId = $(this).data('id');
-     $(".modal-body #personId").val( personId );
-     $("a.deletePerson").attr( 'href', '/delete_person/' + personId );
+     var myBookId = $(this).data('id');
+     $(".modal-body #caca").val( 'caca' );
      // As pointed out in comments, 
      // it is unnecessary to have to manually call the modal.
      // $('#addBookDialog').modal('show');
