@@ -65,7 +65,9 @@
             </div><!-- card --> 
         </div><!-- col-md-6 -->
         <div class="col-md-3">
-            <table class="table table-bordered table-hover">
+            <input class="form-control" type="text" id="personInput" placeholder="Filter..">
+            <br>
+            <table class="table table-bordered table-hover" id="personTable">
                 <thead>
                 <tr>
                     <th>Id</th>
@@ -138,7 +140,8 @@
         </div> <!-- col-md-6 -->
     </div><!-- row -->
 </div><!-- container -->
-<!-- Modal -->
+
+<!-- Delete confirmation modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -170,4 +173,14 @@ $(document).on("click", ".confirmDelete", function () {
      // $('#addBookDialog').modal('show');
 });
 </script>
+<script>
+$(document).ready(function(){
+  $("#personInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#personTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script> 
 {% endblock %}
