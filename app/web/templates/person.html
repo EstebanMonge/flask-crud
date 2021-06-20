@@ -23,7 +23,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="username" class="form-label">Username:</label>
-                            <input class="form-control" type="text" name="username" placeholder="Username" required>
+                            <input class="form-control" type="text" name="username" id="username" placeholder="Username" required onfocusout="myFunction()">
                         </div>
                         <div class="mb-3">
                             <select class="form-select" name="role">
@@ -164,16 +164,15 @@
   </div>
 </div>
 <script language="JavaScript" type="text/javascript">
+//Function to get modal working with arguments
 $(document).on("click", ".confirmDelete", function () {
      var personId = $(this).data('id');
      $(".modal-body #personId").val( personId );
      $("a.deletePerson").attr( 'href', '/delete_person/' + personId );
-     // As pointed out in comments, 
-     // it is unnecessary to have to manually call the modal.
-     // $('#addBookDialog').modal('show');
 });
 </script>
 <script>
+//Function to filter the table
 $(document).ready(function(){
   $("#personInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -183,4 +182,25 @@ $(document).ready(function(){
   });
 });
 </script> 
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("username");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("personTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[4];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue == input.value) {
+        alert("That username exist!");
+      }
+    }
+  }
+}
+</script>
 {% endblock %}
