@@ -63,8 +63,17 @@
                 </div><!--card-body" -->
             </div><!-- card --> 
         </div><!-- col-md-6 -->
-        <div class="col-md-3">
-            <table class="table table-bordered table-hover">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-6">
+                    <input class="form-control border rounded-pill" type="text" id="handoverInput" placeholder="Filter...">
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-info" onclick="exportTableToExcel('handoverTable', 'handovers')">Export</button>
+                </div>
+            </div>
+            <br>
+            <table class="table table-bordered table-hover" id="handoverTable">
                 <thead>
                 <tr>
                     <th>Id</th>
@@ -133,5 +142,47 @@
         </div> <!-- col-md-6 -->
     </div><!-- row -->
 </div><!-- container -->
-
+<script>
+function exportTableToExcel(tableID, filename = ''){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'excel_data.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+}
+</script>
+<script>
+//Function to filter the table
+$(document).ready(function(){
+  $("#handoverInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#handoverTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 {% endblock %}
