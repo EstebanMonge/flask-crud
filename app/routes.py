@@ -1,3 +1,5 @@
+import os
+import pandas as pd
 from flask import render_template, request, redirect
 from app import app, db
 from app.models import Person
@@ -439,6 +441,30 @@ def turn_handover(id):
         return redirect('/handover')
 
     return "of the jedi"
+
+@app.route("/import_person", methods=['POST'])
+def import_person():
+      # get the uploaded file
+      uploaded_file = request.files['file']
+      if uploaded_file.filename != '':
+           file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
+          # set the file path
+           uploaded_file.save(file_path)
+           parseCSV(file_path)
+          # save the file
+      return redirect('/person')
+
+def parseCSV(filePath):
+      # CVS Column Names
+      col_names = ['fname','lname','email', 'username', 'is_active' , 'role', 'platform', 'shift', 'group']
+      # Use Pandas to parse the CSV file
+      csvData = pd.read_csv(filePath,names=col_names, header=0)
+      # Loop through the Rows
+      for i,row in csvData.iterrows():
+           person = Person(fname = row['fname'], lname = row['lname'], email = row['email'], username = row['username'] , is_active = row['is_active'], group = row['group'], role = row['role'], shift = row['shift'], platform=row['platform'])
+           db.session.add(person)
+           db.session.commit()
+      return redirect('/person')
 
 # @app.errorhandler(Exception)
 # def error_page(e):

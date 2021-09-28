@@ -65,6 +65,10 @@
             </div><!-- card --> 
         </div><!-- col-md-6 -->
         <div class="col-md-3">
+            <form method="POST" action="/import_person" enctype="multipart/form-data">
+                <p><input type="file" name="file"></p>
+                <p><input type="submit" value="Submit"></p>
+            </form>
             <input class="form-control border rounded-pill " type="text" id="personInput" placeholder="Filter...">
             <br>
             <table class="table table-bordered table-hover" id="personTable">
